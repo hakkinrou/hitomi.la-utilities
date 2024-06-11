@@ -1,6 +1,7 @@
 // ==UserScript==
 // @name         hitomi.la Utilities
-// @version      2024-06-10
+// @author       hakkinrou
+// @version      0.9
 // @description  Utils addon for hitomi.la, adding features like notes, votes and whatever
 // @match        https://hitomi.la/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=hitomi.la
