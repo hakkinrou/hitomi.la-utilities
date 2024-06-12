@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         hitomi.la Utilities
 // @author       hakkinrou
-// @version      0.9
+// @version      1.0
 // @description  Utils addon for hitomi.la, adding features like notes, votes and whatever
 // @match        https://hitomi.la/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=hitomi.la
@@ -13,6 +13,16 @@ const REMOVABLE = ["Notes", "Vote"];
 
 var storage = GM_getValue("storage", null);
 if(!storage) storage = [];
+
+const waitForElement = (condition, func) => {
+    var interval = setInterval(() => {
+        if(condition){
+            return false;
+        }
+        func();
+        clearInterval(interval);
+    }, 100);
+}
 
 var interval = setInterval(() => {
     var galleryInfoRef = document.querySelector(".gallery-info");
@@ -45,6 +55,14 @@ var interval = setInterval(() => {
             galleryContent(galleryContentRef);
         }
     });
+    if(window.location.href.includes("search.html")){ // Little trick that uses the site's function, adding a callback to it
+        const old_moveimages = moveimages;
+        moveimages = () => {
+            old_moveimages();
+            galleryInfo(galleryInfoRef);
+            galleryContent(galleryContentRef);
+        };
+    }
     clearInterval(interval);
 }, 100);
 
