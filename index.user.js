@@ -14,16 +14,6 @@ const REMOVABLE = ["Notes", "Vote"];
 var storage = GM_getValue("storage", null);
 if(!storage) storage = [];
 
-const waitForElement = (condition, func) => {
-    var interval = setInterval(() => {
-        if(condition){
-            return false;
-        }
-        func();
-        clearInterval(interval);
-    }, 100);
-}
-
 var interval = setInterval(() => {
     var galleryInfoRef = document.querySelector(".gallery-info");
     var galleryContentRef = document.querySelector(".gallery-content");
