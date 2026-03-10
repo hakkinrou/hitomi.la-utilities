@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         hitomi.la Utilities
 // @author       hakkinrou
-// @version      1.0.2
+// @version      1.0.3
 // @description  Utils addon for hitomi.la, adding features like notes, votes and whatever
 // @match        https://hitomi.la/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=hitomi.la
+// @updateURL    https://github.com/hakkinrou/hitomi.la-utilities/raw/main/index.user.js
 // @downloadURL  https://github.com/hakkinrou/hitomi.la-utilities/raw/main/index.user.js
 // @grant        GM_getValue
 // @grant        GM_setValue
@@ -109,11 +110,7 @@ style.innerHTML = `
         font-family: Arial, sans-serif;
         background-color: #f4f4f4;
         color: #333;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        margin: 20px;
     }
 
     .doujin-container {
@@ -122,8 +119,8 @@ style.innerHTML = `
         background-color: #ffffff;
         border-radius: 12px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
         padding: 20px;
+        margin: 0 auto;
     }
 
     /* Header styling */
@@ -269,8 +266,20 @@ if(window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/
     a.innerHTML = "My Doujins";
     li.appendChild(a);
     navbar.children[1].children[0].appendChild(li);
+    li = document.createElement("li");
+    a = document.createElement("a");
+    const blob = new Blob([JSON.stringify(storage)], {
+        type: 'application/json'
+    });
+    a.href = URL.createObjectURL(blob);
+    const today = new Date();
+    a.download = `hitomi.la_backup_${today.getDate()}-${today.getMonth()+1}-${today.getFullYear()}.json`;
+    a.innerHTML = "Download Storage Backup";
+    li.appendChild(a);
+    navbar.children[1].children[0].appendChild(li);
     navbar.classList.remove("navbar");
     navbar.style = "background-color: #817aa3; display: flex; align-items: center;";
+    navbar.children[1].style = "top: 0";
 }
 
 var galleryInfoRef = document.querySelector(".gallery-info");
