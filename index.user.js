@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         hitomi.la Utilities
 // @author       hakkinrou
-// @version      1.0.3
+// @version      1.0.4
 // @description  Utils addon for hitomi.la, adding features like notes, votes and whatever
 // @match        https://hitomi.la/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=hitomi.la
@@ -280,11 +280,36 @@ if(window.location.pathname.substring(0, window.location.pathname.lastIndexOf("/
     navbar.classList.remove("navbar");
     navbar.style = "background-color: #817aa3; display: flex; align-items: center;";
     navbar.children[1].style = "top: 0";
+} else { // Reader improvement
+    /* eslint-disable-next-line no-undef */
+    // const old_nextPanel = nextPanel;
+    /* eslint-disable-next-line no-undef */
+    const old_mobile_NextPanel = mobile_nextPanel;
+    // In pc it breaks UI a bit
+    /* eslint-disable-next-line no-undef, no-implicit-globals */
+    // nextPanel = () => {
+    //     old_nextPanel();
+    //     document.getElementById("comicImages").scrollIntoView({ block: "start", inline: "end" });
+    // }
+    /* eslint-disable-next-line no-undef, no-implicit-globals */
+    mobile_nextPanel = () => {
+        old_mobile_NextPanel();
+        document.getElementById("mobileImages").scrollIntoView({ block: "start", inline: "end" });
+    }
+//     const desktop = document.getElementById("comicImages");
+//     const mobile = document.getElementById("mobileImages");
+//     const current = desktop.children.length>0?desktop:mobile;
+//     console.log(current);
+//     current.onclick = (event) => {
+//         event.currentTarget.scrollIntoView({ block: "start", inline: "end" });
+//     }
 }
 
 var galleryInfoRef = document.querySelector(".gallery-info");
 var galleryContentRef = document.querySelector(".gallery-content");
+/* eslint-disable-next-line no-undef */
 const old_moveimages = moveimages;
+/* eslint-disable-next-line no-undef, no-implicit-globals */
 moveimages = () => {
     old_moveimages();
     galleryInfo(galleryInfoRef);
